@@ -10,12 +10,6 @@
 	compatible = "tplink,tl-wr841n-v14", "mediatek,mt7628an-soc";
 	model = "TP-Link TL-WR841N v14";
 
-	aliases {
-		led-boot = &led_power_green;
-		led-failsafe = &led_power_green;
-		led-running = &led_power_green;
-		led-upgrade = &led_power_green;
-	};
 
 	chosen {
 		bootargs = "console=ttyS0,115200";
@@ -37,22 +31,32 @@
 		};
 	};
 
-	/* LED used is dual-color, dual lead LED */
-	leds {
-		compatible = "gpio-leds";
+      /* LED used is dual-color, dual lead LED */
+       leds {
+                compatible = "gpio-leds";
 
-		led_power_green: power {
-			label = "tl-wr841n-v14:green:power";
-			gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
-		};
+                lan {
+                        label = "tl-wr841n-v14:green:lan";
+                        gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
+                };
 
-		orange {
-			label = "tl-wr841n-v14:orange:power";
-			gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
-		};
-	};
-};
+               wan_green {
+                        label = "tl-wr841n-v14:green:wan";
+                        gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
+                };
 
+                wlan {
+                        label = "tl-wr841n-v14:green:wlan";
+                        gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
+                };
+
+                wan_orange {
+                        label = "tl-wr841n-v14:orange:wan";
+                        gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+                };
+
+        };
+	
 &spi0 {
 	status = "okay";
 
@@ -110,7 +114,7 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "p0led_an", "p2led_an", "wdt";
+                        ralink,group = "p4led_an", "p3led_an", "p2led_an", "p1led_an", "wdt";
 			ralink,function = "gpio";
 		};
 	};
